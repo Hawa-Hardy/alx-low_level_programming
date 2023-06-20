@@ -11,5 +11,4 @@ void print_alphabet(void)
 	for (let = 'a'; let <= 'z'; let++)
 	_putchar(let);
 	_putchar('\n');
-	return (0);
 }
