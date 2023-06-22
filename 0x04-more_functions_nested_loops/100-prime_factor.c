@@ -8,9 +8,9 @@
  */
 int main(void)
 {
-	long long int num;
-	long long int max_prime;
-	long long int i;
+	long int num;
+	long int max_prime;
+	long int i;
 
 	num = 612852475143;
 	max_prime = -1;
@@ -21,7 +21,7 @@ int main(void)
 		num /= 2;
 	}
 
-	for (i = 3; i <= sqrt(n); i = i + 2)
+	for (i = 3; i <= sqrt(num); i = i + 2)
 	{
 		while (num % i == 0)
 		{
@@ -31,7 +31,7 @@ int main(void)
 	}
 
 	if (num > 2)
-		max_prime = n;
+		max_prime = num;
 
 	printf("%ld\n", max_prime);
 
