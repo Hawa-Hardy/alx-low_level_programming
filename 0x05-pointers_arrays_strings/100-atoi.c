@@ -7,14 +7,12 @@
  */
 int _atoi(char *s)
 {
-	int index, digit_count, number, length;
-	int minus_count, is_valid, digit;
+	int index, minus_count, number, length, is_valid, digit;
 
 	index = 0;
-	digit_count = 0;
+	minus_count = 0;
 	number = 0;
 	length = 0;
-	minus_count = 0;
 	is_valid = 0;
 	digit = 0;
 
