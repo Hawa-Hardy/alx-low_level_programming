@@ -1,27 +1,20 @@
 #include "main.h"
-
 /**
- * rev_string - reverse array
- * @n: integer params
- * Return: 0
+ * reverse_array - reverse array of integers
+ * @arr: array
+ * @size: number of elements of array
+ *
+ * Return: void
  */
-
-void rev_string(char *n)
+void reverse_array(int *arr, int size)
 {
-	int i = 0;
-	int j = 0;
-	char temp;
+	int index;
+	int temp;
 
-	while (*(n + i) != '\0')
+	for (index = 0; index < size--; index++)
 	{
-		i++;
-	}
-	i--;
-
-	for (j = 0; j < i; j++, i--)
-	{
-		temp = *(n + j);
-		*(n + j) = *(n + i);
-		*(n + i) = temp;
+		temp = arr[index];
+		arr[index] = arr[size];
+		arr[size] = temp;
 	}
 }
