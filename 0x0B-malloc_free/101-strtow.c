@@ -1,74 +1,77 @@
 #include <stdlib.h>
 #include "main.h"
+
 /**
- * count_words - helper function to count the number of words in a string
- * @str: string to evaluate
+ * count_word - helper function to count the number of words in a string
+ * @s: string to evaluate
  *
  * Return: number of words
  */
-int count_words(char *str)
+int count_word(char *s)
 {
-	int is_space = 1, count = 0;
+	int flag, c, w;
 
-	for (int i = 0; str[i] != '\0'; i++)
+	flag = 0;
+	w = 0;
+
+	for (c = 0; s[c] != '\0'; c++)
 	{
-		if (str[i] == ' ')
-			is_space = 1;
-		else if (is_space)
+		if (s[c] == ' ')
+			flag = 0;
+		else if (flag == 0)
 		{
-			count++;
-			is_space = 0;
+			flag = 1;
+			w++;
 		}
 	}
 
-	return (count);
+	return (w);
 }
-
 /**
- * strtow - splits a string into words
+ * **strtow - splits a string into words
  * @str: string to split
- * Return: pointer to an array of strings (Success) or NULL (Error)
+ *
+ * Return: pointer to an array of strings (Success)
+ * or NULL (Error)
  */
 char **strtow(char *str)
 {
-	char **words_array, *word;
-	int word_count = 0, len = 0, index = 0
-	int word_length = 0, start_index, end_index;
+	char **matrix, *tmp;
+	int index, k = 0, len = 0, words, c = 0, start, end;
 
-	while (str[len])
+	while (*(str + len))
 		len++;
-
-	word_count = count_words(str);
-	if (word_count == 0)
-		return (NULL);
-	words_array = (char **)malloc(sizeof(char *) * (word_count + 1));
-	if (words_array == NULL)
+	words = count_word(str);
+	if (words == 0)
 		return (NULL);
 
-	for (int i = 0; i <= len; i++)
+	matrix = (char **) malloc(sizeof(char *) * (words + 1));
+	if (matrix == NULL)
+		return (NULL);
+
+	for (index = 0; index <= len; index++)
 	{
-		if (str[i] == ' ' || str[i] == '\0')
+		if (str[index] == ' ' || str[index] == '\0')
 		{
-			if (word_length)
+			if (c)
 			{
-				end_index = i;
-				word = (char *)malloc(sizeof(char) * (word_length + 1));
-				if (word == NULL)
+				end = index;
+				tmp = (char *) malloc(sizeof(char) * (c + 1));
+				if (tmp == NULL)
 					return (NULL);
-
-				start_index = index - word_length;
-				for (int j = 0; j < word_length; j++)
-					word[j] = str[start_index++];
-
-				word[word_length] = '\0';
-				words_array[index] = word;
-				index++;
-				word_length = 0;
+				while (start < end)
+					*tmp++ = str[start++];
+				*tmp = '\0';
+				matrix[k] = tmp - c;
+				k++;
+				c = 0;
 			}
 		}
-		else if (word_length++ == 0)
-			start_index = i;
+		else if (c++ == 0)
+			start = index;
 	}
-	words_array[index] = NULL;
-	return (words_array);
+
+	matrix[k] = NULL;
+
+	return (matrix);
 }
