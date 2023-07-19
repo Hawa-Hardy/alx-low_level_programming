@@ -2,45 +2,41 @@
 #include <stdlib.h>
 
 /**
- * main - Prints the opcodes of its own main function
- * @argc: The number of command-line arguments (should be 2)
- * @argv: An array of command-line argument strings
+ * main - Prints its own opcodes
+ * @argc: Number of command-line arguments
+ * @argv: Array of command-line argument strings
  *
  * Return: Always 0 (Success)
  */
 int main(int argc, char *argv[])
 {
-	int num_bytes, index;
+	int num_bytes, i;
 	char *main_func;
 
 	if (argc != 2)
 	{
-		printf("Usage: %s <num_bytes>\n", argv[0]);
-		exit(EXIT_FAILURE);
+		printf("Error\n");
+		exit(1);
 	}
 
 	num_bytes = atoi(argv[1]);
 
-	if (num_bytes <= 0)
+	if (num_bytes < 0)
 	{
-		printf("Error: Number of bytes must be a positive integer.\n");
-		exit(EXIT_FAILURE);
+		printf("Error\n");
+		exit(2);
 	}
 
 	main_func = (char *)main;
 
-	for (index = 0; index < num_bytes; index++)
+	for (i = 0; i < num_bytes; i++)
 	{
-		if (index == num_bytes - 1)
+		if (i == num_bytes - 1)
 		{
-			printf("%02hhx\n", main_func[index]);
+			printf("%02hhx\n", main_func[i]);
+			break;
 		}
-		else
-		{
-			printf("%02hhx ", main_func[index]);
-		}
+		printf("%02hhx ", main_func[i]);
 	}
-
 	return (0);
 }
-
