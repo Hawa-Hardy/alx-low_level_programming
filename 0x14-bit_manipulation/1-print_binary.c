@@ -6,14 +6,27 @@
  */
 void print_binary(unsigned long int n)
 {
-	int i;
 	unsigned long int mask = 1;
+	int bit_pos = 0;
+	int is_printing = 0;
 
-	for (i = 63; i >= 0; i--)
+	/* Find the most significant bit position */
+	for (bit_pos = sizeof(unsigned long int) * 8 - 1; bit_pos >= 0; bit_pos--)
 	{
-		unsigned long int bit = n & (mask << i);
+		if (n & (mask << bit_pos))
+		{
+			is_printing = 1;
+			break;
+		}
+	}
 
-		if (bit)
+	if (!is_printing)
+		_putchar('0');
+
+	/* Print binary digits */
+	for (; bit_pos >= 0; bit_pos--)
+	{
+		if (n & (mask << bit_pos))
 			_putchar('1');
 		else
 			_putchar('0');
