@@ -14,11 +14,11 @@ unsigned int flip_bits(unsigned long int n, unsigned long int m)
 	unsigned int count = 0;
 
 	/* Count the number of set bits in the exclusive OR result */
-	while (exclusive > 0)
+	while (exclusive)
 	{
-		count += exclusive & 1;
-		exclusive >>= 1;
+		exclusive &= (exclusive - 1);
+		count++;
 	}
 
-	return count;
+	return (count);
 }
