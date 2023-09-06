@@ -7,23 +7,12 @@
 #include <unistd.h>
 #include "main.h"
 
-void check_elf(unsigned char *e_ident);
-void print_magic(unsigned char *e_ident);
-void print_class(unsigned char *e_ident);
-void print_data(unsigned char *e_ident);
-void print_version(unsigned char *e_ident);
-void print_abi(unsigned char *e_ident);
-void print_os_abi(unsigned char *e_ident);
-void print_type(unsigned int e_type, unsigned char *e_ident);
-void print_entry(unsigned long int e_entry, unsigned char *e_ident);
-void close_elf(int elf);
-
 /**
- * verify_elf - Verifies the presence of an ELF file.
+ * check_elf - Verifies the presence of an ELF file.
  * @e_ident: Pointer to an array containing ELF magic numbers.
  *
- * Descriptioni: If the file doesn't meet the ELF file criteria
- *              the program will exit with an error code of 98.
+ * Description: If the file doesn't meet the ELF file criteria
+ *              the program will exit error code 98
  */
 void check_elf(unsigned char *e_ident)
 {
@@ -134,10 +123,10 @@ void print_version(unsigned char *e_ident)
 }
 
 /**
- * print_os_abi - Display the OS/ABI of an ELF header.
+ * print_osabi - Display OS/ABI of ELF header
  * @e_ident: Pointer to an array holding the ELF OS/ABI information.
  */
-void print_os_abi(unsigned char *e_ident)
+void print_osabi(unsigned char *e_ident)
 {
 	printf(" OS/ABI: ");
 
@@ -304,7 +293,7 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	print_class(header->e_ident);
 	print_data(header->e_ident);
 	print_version(header->e_ident);
-	print_os_abi(header->e_ident);
+	print_osabi(header->e_ident);
 	print_abi(header->e_ident);
 	print_type(header->e_type, header->e_ident);
 	print_entry(header->e_entry, header->e_ident);
