@@ -13,43 +13,18 @@ void close_file(int fd);
  */
 char *create_buffer(char *file)
 {
-	char *buffer;
+	char *buf;
 
-	buffer = malloc(sizeof(char) * 1024);
+	buf = malloc(sizeof(char) * 1024);
 
-	if (buffer == NULL)
+	if (buf == NULL)
 	{
 		dprintf(STDERR_FILENO,
 			"Error: Can't write to %s\n", file);
 		exit(99);
 	}
 
-	return (buffer);
-}
-
-/**
- * main - Copies the content of a file to another file.
- * @argc: The total number of arguments
- * @argv: Array of pointers to function's arguments
- *
- * Return: 0 (success)
- */
-
-/**
- * close_file - Closes the file descriptors.
- * @fd: The file descriptor to be closed.
- */
-void close_file(int fd)
-{
-	int x;
-
-	x = close(fd);
-
-	if (x == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
-		exit(100);
-	}
+	return (buf);
 }
 
 /**
@@ -104,3 +79,21 @@ int main(int argc, char *argv[])
 
 	return (0);
 }
+
+/**
+ * close_file - Closes the file descriptors.
+ * @fd: The file descriptor to be closed.
+ */
+void close_file(int fd)
+{
+	int x;
+
+	x = close(fd);
+
+	if (x == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
+		exit(100);
+	}
+}
+
