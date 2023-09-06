@@ -86,11 +86,11 @@ int main(int argc, char *argv[])
  */
 void close_file(int fd)
 {
-	int x;
+	int c;
 
-	x = close(fd);
+	c = close(fd);
 
-	if (x == -1)
+	if (c == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
 		exit(100);
