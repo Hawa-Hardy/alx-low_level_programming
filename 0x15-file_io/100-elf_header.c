@@ -11,12 +11,12 @@
 /**
 * check_elf - Verifies the presence of an ELF file.
 * @e_ident: Pointer to an array containing ELF magic numbers
-* 
+*
 * Description: If the file doesn't meet the ELF file criteria
 *				the program will exit error code 98
 */
 
-void check_elf (unsigned char *e_ident)
+void check_elf(unsigned char *e_ident)
 {
 	if (*(e_ident) == 0x7f && *(e_ident + 1) == 'E' &&
 	    *(e_ident + 2) == 'L' && *(e_ident + 3) == 'F')
@@ -201,7 +201,7 @@ int main(int argc, char *argv[])
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", *(argv + 1));
 		exit(98);
 	}
-	check_elf (file->e_ident);
+	check_elf(file->e_ident);
 	magic(file->e_ident);
 	class(file->e_ident);
 	data(file->e_ident);
