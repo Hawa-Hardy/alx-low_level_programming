@@ -75,7 +75,7 @@ void class(unsigned char *e_ident)
 
 void data(unsigned char *e_ident)
 {
-	printf("  Data:                      ");
+	printf("  Data:                              ");
 	if (e_ident[EI_DATA] == ELFDATANONE)
 		printf("Unknown data format\n");
 	else if (e_ident[EI_DATA] == ELFDATA2LSB)
@@ -105,7 +105,7 @@ void version(unsigned char *e_ident)
  */
 void osabi(unsigned char *e_ident)
 {
-	printf("  OS/ABI:                      ");
+	printf("  OS/ABI:                            ");
 	if (e_ident[EI_OSABI] == ELFOSABI_SYSV)
 		printf("UNIX - System V\n");
 	else if (e_ident[EI_OSABI] == ELFOSABI_HPUX)
