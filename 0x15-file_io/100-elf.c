@@ -1,23 +1,16 @@
 #include <elf.h>
-#include <stdio.h>
+#include "main.h"
 #include <stdlib.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#incude "main.h"
+#include <stdio.h>
 #define REV(n) ((n << 24) | (((n >> 16) << 24) >> 16) | \
 (((n << 16) >> 24) << 16) | (n >> 24))
-
 /**
-* check_elf - Verifies the presence of an ELF file.
-* @e_ident: Pointer to an array containing ELF magic numbers
-*
-* Description: If the file doesn't meet the ELF file criteria
-*				the program will exit error code 98
+* verify- verify the file to check if is a ELF
+* @e_ident: the ELF struct
+* return: no return is a void func.
 */
 
-void check_elf(unsigned char *e_ident)
+void verify(unsigned char *e_ident)
 {
 	if (*(e_ident) == 0x7f && *(e_ident + 1) == 'E' &&
 	    *(e_ident + 2) == 'L' && *(e_ident + 3) == 'F')
@@ -32,15 +25,14 @@ void check_elf(unsigned char *e_ident)
 }
 
 /**
-* magic - Display the ELF header's magic numbers.
-* @e_ident: Pointer to an array holding the ELF magic numbers
-*
-* Description: The magic numbers are printed with spaces between them
+* magic - print magic number
+* @e_ident: the ELF struct
+* return: no return is a void func.
 */
 
 void magic(unsigned char *e_ident)
 {
-	int i;
+	int i; /* the index to count the magic bytes */
 	int limit;
 
 	limit = EI_NIDENT - 1;
@@ -51,8 +43,9 @@ void magic(unsigned char *e_ident)
 }
 
 /**
-* class - Display the ELF header's class.
-* @e_ident: Pointer to an array holding the ELF class.
+* class - print the class of the ELF
+* @e_ident: the ELF struct
+* return: no return is a void func.
 */
 
 void class(unsigned char *e_ident)
@@ -69,13 +62,14 @@ void class(unsigned char *e_ident)
 }
 
 /**
-* data - Display the data format of an ELF header.
+* data - print mthe type of data
 * @e_ident: the ELF struct
+* return: no return is a void func.
 */
 
 void data(unsigned char *e_ident)
 {
-	printf("  Data:                      ");
+	printf("  Data:                              ");
 	if (e_ident[EI_DATA] == ELFDATANONE)
 		printf("Unknown data format\n");
 	else if (e_ident[EI_DATA] == ELFDATA2LSB)
@@ -87,9 +81,11 @@ void data(unsigned char *e_ident)
 }
 
 /**
-* version - Display the version of an ELF header.
-* @e_ident: Pointer to an array holding the ELF version.
+* version - print the version of the file
+* @e_ident: the ELF struct
+* return: no return is a void func.
 */
+
 void version(unsigned char *e_ident)
 {
 	printf("  Version:                           ");
@@ -100,12 +96,13 @@ void version(unsigned char *e_ident)
 }
 
 /**
- * osabi - Display OS/ABI of ELF header
- * @e_ident: Pointer to an array holding the ELF OS/ABI information.
+ * osabi - print the osabi
+ * @e_ident: the ELF struct
+ * return: no return is a void func.
  */
 void osabi(unsigned char *e_ident)
 {
-	printf("  OS/ABI:                      ");
+	printf("  OS/ABI:                            ");
 	if (e_ident[EI_OSABI] == ELFOSABI_SYSV)
 		printf("UNIX - System V\n");
 	else if (e_ident[EI_OSABI] == ELFOSABI_HPUX)
@@ -131,10 +128,11 @@ void osabi(unsigned char *e_ident)
 }
 
 /**
- * type - Display the type of an ELF header.
- * @e_type: to know the ELF type.
- * @e_ident: Array pointer to the ELF class.
- */
+* type - print the type
+* @e_ident: the ELF struct
+* @e_type: data to compare and print.
+* return: no return is a void func.
+*/
 
 void type(unsigned int e_type, unsigned char *e_ident)
 {
@@ -156,10 +154,12 @@ void type(unsigned int e_type, unsigned char *e_ident)
 }
 
 /**
- * entry - Display the entry point address of an ELF header.
- * @e_entry: The address of the ELF's entry point
- * @e_ident: Pointer to the array holding the ELF's class.
- */
+* entry - print the entry point
+* @e_ident: the ELF struct
+* @e_entry: the data to print
+* return: no return is a void func.
+*/
+
 void entry(unsigned int e_entry, unsigned char *e_ident)
 {
 	if (e_ident[EI_DATA] == ELFDATA2MSB)
@@ -170,14 +170,12 @@ void entry(unsigned int e_entry, unsigned char *e_ident)
 }
 
 /**
- * main - Prints out info in the ELF header at start of an ELF file
- * @argc: The number of arguments given
- * @argv: An array of pointers to the arguments
- *
- * Return: On succes - 0
- * If fails, exit with code 98 or
- * the file is not an ELF file
- */
+* main - read a ELF file.
+* @argc: the number of args
+* @argv: the Args
+* section header: the header of this function is holberton.h
+* Return: 0 in success
+*/
 
 int main(int argc, char *argv[])
 {
@@ -202,7 +200,7 @@ int main(int argc, char *argv[])
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", *(argv + 1));
 		exit(98);
 	}
-	check_elf(file->e_ident);
+	verify(file->e_ident);
 	magic(file->e_ident);
 	class(file->e_ident);
 	data(file->e_ident);
